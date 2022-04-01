@@ -1,6 +1,6 @@
 from pytube import YouTube
-from moviepy.editor import VideoFileClip
-from moviepy import AudioFileClip
+from moviepy.editor import VideoFileClip, AudioFileClip
+#from moviepy import AudioFileClip
 from docx import Document
 import speech_recognition as sr
 
@@ -38,10 +38,10 @@ class Link:
     def conversion_formato_video_a_audio_wav(self):
         """Extrae el audio de un video y lo escribe en un formato .wav"""
         
-        clip = input("Ingresa el nombre del archivo completo, ejemplo: Video1.mp4")
+        clip = input("Ingresa el nombre del archivo completo, ejemplo: Video1.mp4: ")
         video = VideoFileClip(clip)
         audio = video.audio
-        nombre_archivo = input("Ingrese como quiere escribir el audio y su extension, Ej: Audio.wav :")
+        nombre_archivo = input("Ingrese como quiere escribir el audio y su extension, Ej: Audio.wav: ")
         audio.write_audiofile(nombre_archivo)
         print("Se ha extraido el audio de su video de forma exitosa")
 
@@ -86,10 +86,10 @@ class ArchivoAudio:
     "Tiene que ser un archivo de audio junto con su extensión: Ejemplo Cancion.wav"
     
     def __init__(self, nombre_archivo):
-        self.nombre = nombre_archivo
+        self.audio = nombre_archivo
         
     def division_partes_iguales(self):
-        my_audio = AudioFileClip(my_audio)
+        my_audio = AudioFileClip(self.audio)
         print(f"La duración del audio en segundos es de : {my_audio.duration} segundos")
         print(f"Puedes dividir el audio en {my_audio.duration / 180} partes de 3 minutos cada una")
         cantidad_final = int(my_audio.duration / 180)
@@ -102,6 +102,13 @@ class ArchivoAudio:
             t_1 += 180
             t_2 += 180
             
+            i += 1
+        
+        print(t_1)
+        print(my_audio.duration)
+        clip = my_audio.subclip(t_1, my_audio.duration/180 - 2)
+        clip.write_audiofile(f"Parte {cantidad_final + 1}.wav")
+        
         print(f"Se logró dividir el audio en partes iguales de forma exitosa\n")
         
         
