@@ -1,0 +1,4 @@
+pytube == 12.0.0
+python-docx == 0.8.11
+SpeechRecognition == 3.8.1
+moviepy == 1.0.3
