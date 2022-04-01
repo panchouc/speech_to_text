@@ -1,6 +1,5 @@
 from pytube import YouTube
 from moviepy.editor import VideoFileClip, AudioFileClip
-#from moviepy import AudioFileClip
 from docx import Document
 import speech_recognition as sr
 
@@ -36,6 +35,7 @@ class Link:
         stream.download()
         print("¡Su video ha sido descargado de forma exitosa!")
     
+    
     def extraccion_formato_video_a_audio_mp3(self):
         """Sirve para extraer audio por ejemplo de un archivo .mp4 y lo escribe uno .mp3"""
         
@@ -68,6 +68,7 @@ class Recognition():
         self.nombre = nombre_documento
         
         
+    
     def reconocimiento(self):
         
         """Convierte todos los archivos de audio que tienen el mismo nombre, pero distinto número, muchos archivos word con el respectivo texto del audio"""
@@ -98,6 +99,7 @@ class ArchivoAudio:
     def __init__(self, nombre_archivo):
         self.audio = nombre_archivo
         
+    
     def division_partes_iguales(self):
         my_audio = AudioFileClip(self.audio)
         print(f"La duración del audio en segundos es de : {my_audio.duration} segundos")
@@ -171,6 +173,7 @@ class Texto:
         documento.save("Textos_en_uno.docx")
         print("Tus documentos han sido juntados con éxito")
         
+    
     def juntar_words_en_uno(self):
         self.loop_documentos()
         print("Todavía no se juntan los documentos")
