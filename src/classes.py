@@ -60,8 +60,7 @@ class Recognition():
         
     def reconocimiento(self):
         
-        """Convierte todos los archivos de audio que tienen el mismo nombre, pero distinto número, en un word único
-        con todo el texto"""
+        """Convierte todos los archivos de audio que tienen el mismo nombre, pero distinto número, muchos archivos word con el respectivo texto del audio"""
         
         r = sr.Recognizer()
         print("Recuerda que tienes que tener los documentos con el mismo nombre principal y distinto número. Ejemplo: Audio1.wav, Audio2.wav ...")
@@ -105,3 +104,57 @@ class ArchivoAudio:
             
         print(f"Se logró dividir el audio en partes iguales de forma exitosa\n")
         
+        
+class Texto:
+    """Ingresa el nombre del documento, tiene que ser formato word, sin el .docx
+    Se puede obtener el texto de un word, iterar sobre ellos y juntar toda la información
+    """
+    def __init__(self, nombre_documento, inicio, fin):
+        self.filename = nombre_documento
+        self.inicio = inicio
+        self.fin = fin 
+        self.fullText = []
+        
+    
+    def getText(self, filename):
+        """Obtiene el texto de un archivo word, creo"""
+        
+        
+        doc = Document(filename)
+        
+        for para in doc.paragraphs:
+            self.fullText.append(para.text)
+        
+        
+        return '\n'.join(self.fullText)
+    
+    
+    def loop_documentos(self):
+        """Añade toda la información a la variable self.fullText, de todos los word"""
+        try:
+            for i in range(self.inicio, self.fin + 1):
+                self.getText(f"{self.filename}{i}.docx")
+        
+        except:
+            
+            pass
+        
+        finally:
+            print("El loop fue completado")
+            
+    
+    def juntar_textos_en_uno(self):
+        """Añade toda la información de self.fullText a una nueva variable documento"""
+        
+        documento = Document()
+        
+        for i in self.fullText:
+            documento.add_paragraph(i)
+            
+        documento.save("Textos_en_uno.docx")
+        print("Tus documentos han sido juntados con éxito")
+        
+    def juntar_words_en_uno(self):
+        self.loop_documentos()
+        print("Todavía no se juntan los documentos")
+        self.juntar_textos_en_uno()
