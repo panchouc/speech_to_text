@@ -25,6 +25,16 @@ class Link:
         stream.download()
         print("El audio del video ha sido descargado de forma exitosa\n")
         
+        
+    def descargar_video(self):
+        """Del link, descarga el video completo, junto con el audio"""
+        yt = YouTube(self.url)
+        print("El video que usted seleccionó es: " + yt.title)
+        print(yt.streams.filter(progressive=True))
+        tag = int(input("Ingrese el tag que quiere usar: "))
+        stream = yt.streams.get_by_itag(tag)
+        stream.download()
+        print("¡Su video ha sido descargado de forma exitosa!")
     
     def extraccion_formato_video_a_audio_mp3(self):
         """Sirve para extraer audio por ejemplo de un archivo .mp4 y lo escribe uno .mp3"""
